@@ -1,16 +1,16 @@
 // Test suite for all guard extensions.
-// Run with: bun run agent/extensions/guards-test.ts
+// Run with: bun run agent/extensions/tests/guards-test.ts
 //
 // Covers: blocking behavior, bypass attempts (path-qualified binaries,
 // shell wrappers, flags-after-operands), false-positive prevention,
 // and NixOS/systemd-specific commands.
 
 const guardModules = [
-  "./ssh-network-scan-guard.ts",
-  "./sudo-doas-guard.ts",
-  "./filesystem-guard.ts",
-  "./destructive-ops-guard.ts",
-  "./git-gc-prune-guard.ts",
+  "../ssh-network-scan-guard.ts",
+  "../sudo-doas-guard.ts",
+  "../filesystem-guard.ts",
+  "../destructive-ops-guard.ts",
+  "../git-gc-prune-guard.ts",
 ];
 
 interface MockHandler {
@@ -27,7 +27,7 @@ async function loadGuard(p: string): Promise<{ name: string; handler: MockHandle
   };
   m.default(mockPi);
   return {
-    name: p.replace("./", "").replace(".ts", ""),
+    name: p.replace(/^\.?\.?\//, "").replace(/\.ts$/, ""),
     handler: handlers[0],
   };
 }
