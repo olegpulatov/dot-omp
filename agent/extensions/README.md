@@ -103,7 +103,7 @@ Allows:
 
 Every guard subscribes to OMP's `tool_call` event, which fires before a tool executes. The handler inspects the tool name and input, and if the command matches a dangerous pattern, returns `{ block: true, reason: "..." }`. The block reason is shown to the agent so it can choose a safe alternative or ask you.
 
-Patterns match command words at segment boundaries, handling path-qualified binaries (`/usr/bin/ssh`, `/run/current-system/sw/bin/git`, `/nix/store/.../bin/git`), shell wrappers (`command`, `exec`, `env`, `nohup`, `builtin`), `sudo`/`doas` prefixes, and env var assignments — without false-positiving on `ssh-keygen`, `git commit -m 'gc'`, or branch names containing "prune".
+Patterns match command words at segment boundaries, handling path-qualified binaries (`/usr/bin/ssh`, `/run/current-system/sw/bin/git`, `/nix/store/.../bin/git`) and common `sudo`/`doas` prefixes. Most guards also recognize shell wrappers (`command`, `exec`, `nohup`, `builtin`). This prevents bypass via `/usr/bin/git gc` or `command ssh` without false-positiving on `ssh-keygen`, `git commit -m 'gc'`, or branch names containing "prune".
 
 Guards intercept these tools:
 - `bash` — checks `input.command`

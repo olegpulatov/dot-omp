@@ -65,6 +65,12 @@ const cases: TestCase[] = [
   { guard: "ssh-network-scan-guard", input: "arp-scan --localnet", shouldBlock: true, desc: "arp-scan" },
   { guard: "ssh-network-scan-guard", input: "rustscan 10.0.0.1", shouldBlock: true, desc: "rustscan" },
   { guard: "ssh-network-scan-guard", input: "naabu -host 10.0.0.1", shouldBlock: true, desc: "naabu" },
+  { guard: "ssh-network-scan-guard", input: "ssh -p 22 user@host", shouldBlock: true, desc: "ssh -p (flag after command)" },
+  { guard: "ssh-network-scan-guard", input: "ssh -i key.pem user@host", shouldBlock: true, desc: "ssh -i (flag after command)" },
+  { guard: "ssh-network-scan-guard", input: "ssh -v user@host", shouldBlock: true, desc: "ssh -v (flag after command)" },
+  { guard: "ssh-network-scan-guard", input: "nc -vz 10.0.0.1 22", shouldBlock: true, desc: "nc -vz (combined scan flag)" },
+  { guard: "ssh-network-scan-guard", input: "nc -vzn 10.0.0.1 22", shouldBlock: true, desc: "nc -vzn (combined scan flag)" },
+  { guard: "ssh-network-scan-guard", input: "netcat -zv 10.0.0.1 80", shouldBlock: true, desc: "netcat -zv (combined scan flag)" },
   // ── SSH / network scan — should NOT block ──
   { guard: "ssh-network-scan-guard", input: "ssh-keygen -t ed25519", shouldBlock: false, desc: "ssh-keygen not ssh" },
   { guard: "ssh-network-scan-guard", input: "ssh-copy-id user@host", shouldBlock: false, desc: "ssh-copy-id not ssh" },
