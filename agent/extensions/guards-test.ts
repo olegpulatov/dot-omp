@@ -181,6 +181,9 @@ const cases: TestCase[] = [
   { guard: "destructive-ops-guard", input: "bash -c 'echo hi'", shouldBlock: false, desc: "bash -c without curl" },
   { guard: "destructive-ops-guard", input: "nc 10.0.0.1 80", shouldBlock: false, desc: "nc without -e" },
   { guard: "destructive-ops-guard", input: "socat TCP-LISTEN:4242 -", shouldBlock: false, desc: "socat without EXEC" },
+  { guard: "destructive-ops-guard", input: "echo '/dev/tcp is a bash feature'", shouldBlock: false, desc: "echo mentioning /dev/tcp" },
+  { guard: "destructive-ops-guard", input: "grep -r '/dev/tcp' /etc", shouldBlock: false, desc: "grep for /dev/tcp string" },
+  { guard: "destructive-ops-guard", input: "cat script.sh | grep /dev/tcp", shouldBlock: false, desc: "pipe to grep with /dev/tcp" },
 
   // ── git gc/prune — should block ──
   { guard: "git-gc-prune-guard", input: "git gc", shouldBlock: true, desc: "git gc" },

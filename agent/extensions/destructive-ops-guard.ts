@@ -17,7 +17,8 @@ const EVAL_REMOTE_BACKTICK_PATTERN =
   /(?:eval|bash|sh|zsh|fish|dash|ksh)\s+(?:-c\s+)?["'`]?`(?:curl|wget)\b/;
 
 // Reverse shells: bash -i >& /dev/tcp, nc -e, ncat -e, socat EXEC
-const DEV_TCP_PATTERN = /(?:bash|sh|zsh|dash|ksh)\b[^\n;|]*?\/dev\/tcp\b/;
+const DEV_TCP_PATTERN =
+  /(?:^|[;&|\n(\[])\s*(?:(?:sudo|doas|command|exec|builtin|nohup)\s+)*(?:\/[^\s]*\/)?(?:bash|sh|zsh|dash|ksh)\b[^\n;|]*?\/dev\/tcp\b/;
 const NC_EXECUTE_PATTERN =
   /(?:^|[;&|\n(\[])\s*(?:(?:sudo|doas|command|exec|builtin|nohup)\s+)*(?:\/[^\s]*\/)?(?:nc|netcat|ncat)\b[^\n;&|]*?\s-e\b/;
 const SOCAT_EXEC_PATTERN =
